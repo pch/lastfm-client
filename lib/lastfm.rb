@@ -5,7 +5,8 @@ require "json"
 module LastFM
   extend self
 
-  autoload :Album, 'lastfm/album'
+  autoload :APIClass, 'lastfm/api_class'
+  autoload :Album,    'lastfm/album'
 
   DEFAULT_API_URL = 'http://ws.audioscrobbler.com/2.0/'
 
