@@ -5,17 +5,18 @@ require "json"
 module LastFM
   extend self
 
-  autoload :APIClass, 'lastfm/api_class'
-  autoload :Album,    'lastfm/album'
-  autoload :Artist,   'lastfm/artist'
-  autoload :Auth,     'lastfm/auth'
-  autoload :Event,    'lastfm/event'
-  autoload :Geo,      'lastfm/geo'
-  autoload :Group,    'lastfm/group'
-  autoload :Library,  'lastfm/library'
-  autoload :Playlist, 'lastfm/playlist'
-  autoload :Radio,    'lastfm/radio'
-  autoload :Tag,      'lastfm/tag'
+  autoload :APIClass,    'lastfm/api_class'
+  autoload :Album,       'lastfm/album'
+  autoload :Artist,      'lastfm/artist'
+  autoload :Auth,        'lastfm/auth'
+  autoload :Event,       'lastfm/event'
+  autoload :Geo,         'lastfm/geo'
+  autoload :Group,       'lastfm/group'
+  autoload :Library,     'lastfm/library'
+  autoload :Playlist,    'lastfm/playlist'
+  autoload :Radio,       'lastfm/radio'
+  autoload :Tag,         'lastfm/tag'
+  autoload :Tasteometer, 'lastfm/tasteometer'
 
   DEFAULT_API_URL = 'http://ws.audioscrobbler.com/2.0/'
 
