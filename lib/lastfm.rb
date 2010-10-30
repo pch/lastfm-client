@@ -17,6 +17,7 @@ module LastFM
   autoload :Radio,       'lastfm/radio'
   autoload :Tag,         'lastfm/tag'
   autoload :Tasteometer, 'lastfm/tasteometer'
+  autoload :Track,       'lastfm/track'
 
   DEFAULT_API_URL = 'http://ws.audioscrobbler.com/2.0/'
 
