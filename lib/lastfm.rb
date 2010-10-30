@@ -8,6 +8,7 @@ module LastFM
   autoload :APIClass, 'lastfm/api_class'
   autoload :Album,    'lastfm/album'
   autoload :Artist,   'lastfm/artist'
+  autoload :Auth,     'lastfm/auth'
 
   DEFAULT_API_URL = 'http://ws.audioscrobbler.com/2.0/'
 
