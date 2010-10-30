@@ -14,6 +14,7 @@ module LastFM
   autoload :Group,    'lastfm/group'
   autoload :Library,  'lastfm/library'
   autoload :Playlist, 'lastfm/playlist'
+  autoload :Radio,    'lastfm/radio'
 
   DEFAULT_API_URL = 'http://ws.audioscrobbler.com/2.0/'
 
