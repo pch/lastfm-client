@@ -9,6 +9,7 @@ module LastFM
   autoload :Album,    'lastfm/album'
   autoload :Artist,   'lastfm/artist'
   autoload :Auth,     'lastfm/auth'
+  autoload :Event,    'lastfm/event'
 
   DEFAULT_API_URL = 'http://ws.audioscrobbler.com/2.0/'
 
