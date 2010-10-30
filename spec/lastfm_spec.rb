@@ -1,0 +1,51 @@
+require "spec_helper"
+
+describe LastFM do
+  it "should have a default API URL" do
+    LastFM.api_url.should == LastFM::DEFAULT_API_URL
+  end
+
+  it "should allow to set a custom API URL" do
+    custom_url = "http://foobar.com"
+
+    LastFM.api_url = custom_url
+    LastFM.api_url.should == custom_url
+  end
+
+  it "should set API key" do
+    LastFM.api_key = "1234"
+    LastFM.api_key.should == "1234"
+  end
+
+  it "should raise error when trying to read empty token" do
+    LastFM.api_key = nil
+    lambda { LastFM.api_key }.should raise_error(RuntimeError, "API Key is not set")
+  end
+
+  it "should set client name" do
+    LastFM.client_name = "Foobar"
+    LastFM.client_name.should == "Foobar"
+  end
+
+  it "should raise error when trying to read empty client name" do
+    LastFM.client_name = nil
+    lambda { LastFM.client_name }.should raise_error(RuntimeError, "Client name is not set")
+  end
+
+  describe "API requests" do
+    it "should raise error when trying to supply invalid params" do
+      lambda { LastFM.send_api_request("test", nil) }.should raise_error(RuntimeError, "Invalid params")
+    end
+
+    it "should send request" do
+      LastFM.api_url     = LastFM::DEFAULT_API_URL
+      LastFM.api_key     = "7fbc71d4b818dc1277e273ac1ef92b07"
+      LastFM.client_name = "Last.fm Ruby gem"
+
+      LastFM.should_receive(:fetch_data).with("http://ws.audioscrobbler.com/2.0/?artist=Cher&album=Believe&method=album.getinfo&api_key=7fbc71d4b818dc1277e273ac1ef92b07&format=json").and_return({})
+
+      response = LastFM.send_api_request("album.getinfo", {:artist => "Cher", :album => "Believe"})
+      response.should be_a(Hash)
+    end
+  end
+end
