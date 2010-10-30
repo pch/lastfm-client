@@ -11,6 +11,7 @@ module LastFM
   autoload :Auth,     'lastfm/auth'
   autoload :Event,    'lastfm/event'
   autoload :Geo,      'lastfm/geo'
+  autoload :Group,    'lastfm/group'
 
   DEFAULT_API_URL = 'http://ws.audioscrobbler.com/2.0/'
 
