@@ -22,7 +22,8 @@ module LastFM
   autoload :User,        'lastfm/api_classes/user'
   autoload :Venue,       'lastfm/api_classes/venue'
 
-  DEFAULT_API_URL = 'http://ws.audioscrobbler.com/2.0/'
+  DEFAULT_API_URL  = 'http://ws.audioscrobbler.com/2.0/'
+  DEFAULT_AUTH_URL = 'http://www.last.fm/api/auth/'
 
   def api_url
     @api_url || DEFAULT_API_URL
@@ -54,6 +55,14 @@ module LastFM
 
   def client_name=(name)
     @client_name = name
+  end
+
+  def auth_url
+    (@auth_url || DEFAULT_AUTH_URL) + "?api_key=#{self.api_key}"
+  end
+
+  def auth_url=(url)
+    @auth_url = url
   end
 
   def send_api_request(method, params)

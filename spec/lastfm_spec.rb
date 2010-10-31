@@ -42,6 +42,18 @@ describe LastFM do
     lambda { LastFM.client_name }.should raise_error(RuntimeError, "Client name is not set")
   end
 
+  it "should have a default Auth URL" do
+    LastFM.api_key = "1234"
+    LastFM.auth_url.should == LastFM::DEFAULT_AUTH_URL + "?api_key=1234"
+  end
+
+  it "should allow to set a custom Auth URL" do
+    custom_url = "http://foobarbaz.com"
+
+    LastFM.auth_url = custom_url
+    LastFM.auth_url.should == custom_url + "?api_key=1234"
+  end
+
   describe "API requests" do
     it "should raise error when trying to supply invalid params" do
       lambda { LastFM.send_api_request("test", nil) }.should raise_error(RuntimeError, "Invalid params")
