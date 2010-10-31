@@ -22,6 +22,16 @@ describe LastFM do
     lambda { LastFM.api_key }.should raise_error(RuntimeError, "API Key is not set")
   end
 
+  it "should set secret" do
+    LastFM.secret = "123456"
+    LastFM.secret.should == "123456"
+  end
+
+  it "should raise error when trying to read empty secret" do
+    LastFM.secret = nil
+    lambda { LastFM.secret }.should raise_error(RuntimeError, "Secret is not set")
+  end
+
   it "should set client name" do
     LastFM.client_name = "Foobar"
     LastFM.client_name.should == "Foobar"
@@ -37,6 +47,12 @@ describe LastFM do
       lambda { LastFM.send_api_request("test", nil) }.should raise_error(RuntimeError, "Invalid params")
     end
 
+    it "should generate key signature" do
+      LastFM.secret = "test"
+      signature = LastFM.generate_signature(:foo => "hey", :bar => "hi", :baz => "hello")
+      signature.should == "46bfc3df86f175c869101e1c8c171589"
+    end
+
     it "should send request" do
       LastFM.api_url     = LastFM::DEFAULT_API_URL
       LastFM.api_key     = "7fbc71d4b818dc1277e273ac1ef92b07"
@@ -44,7 +60,15 @@ describe LastFM do
 
       LastFM.should_receive(:fetch_data).with("http://ws.audioscrobbler.com/2.0/?artist=Cher&album=Believe&method=album.getinfo&api_key=7fbc71d4b818dc1277e273ac1ef92b07&format=json").and_return({})
 
-      response = LastFM.send_api_request("album.getinfo", {:artist => "Cher", :album => "Believe"})
+      response = LastFM.send_api_request("album.getinfo", :artist => "Cher", :album => "Believe")
+      response.should be_a(Hash)
+    end
+
+    it "should send request with key signature" do
+      LastFM.secret = "test"
+      LastFM.should_receive(:fetch_data).with("http://ws.audioscrobbler.com/2.0/?artist=Cher&album=Believe&method=album.getinfo&api_key=7fbc71d4b818dc1277e273ac1ef92b07&format=json&key_sig=5553c27d3ed9629826260c9df87edef5").and_return({})
+
+      response = LastFM.send_api_request("album.getinfo", :artist => "Cher", :album => "Believe", :key_sig => true)
       response.should be_a(Hash)
     end
   end
