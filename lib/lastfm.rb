@@ -54,7 +54,7 @@ module LastFM
     params[:api_key] = self.api_key
     params[:format]  = "json"
 
-    fetch_data(api_url + "?" + hash_to_params(params))
+    fetch_data(self.api_url + "?" + hash_to_params(params))
   end
 
   def fetch_data(url)
