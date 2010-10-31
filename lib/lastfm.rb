@@ -61,12 +61,13 @@ module LastFM
 
     params[:method]  = method
     params[:api_key] = self.api_key
-    params[:format]  = "json"
 
-    if params[:key_sig] == true
-      params.delete(:key_sig)
-      params[:key_sig] = generate_signature(params)
+    if params[:api_sig] == true
+      params.delete(:api_sig)
+      params[:api_sig] = generate_signature(params)
     end
+
+    params[:format] = "json"
 
     fetch_data(self.api_url + "?" + hash_to_params(params))
   end
@@ -82,7 +83,7 @@ module LastFM
     signature = ""
 
     params.sort.each do |param|
-      signature += "#{param[0]}#{param[1]}"
+      signature += "#{param[0]}#{::URI.encode(param[1])}"
     end
 
     signature = Digest::MD5.hexdigest(signature + self.secret)

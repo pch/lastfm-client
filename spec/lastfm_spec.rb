@@ -66,9 +66,9 @@ describe LastFM do
 
     it "should send request with key signature" do
       LastFM.secret = "test"
-      LastFM.should_receive(:fetch_data).with("http://ws.audioscrobbler.com/2.0/?artist=Cher&album=Believe&method=album.getinfo&api_key=7fbc71d4b818dc1277e273ac1ef92b07&format=json&key_sig=5553c27d3ed9629826260c9df87edef5").and_return({})
+      LastFM.should_receive(:fetch_data).with("http://ws.audioscrobbler.com/2.0/?artist=Cher&album=Believe&method=album.getinfo&api_key=7fbc71d4b818dc1277e273ac1ef92b07&api_sig=b796a3385c59872367f31fc510a4ee21&format=json").and_return({})
 
-      response = LastFM.send_api_request("album.getinfo", :artist => "Cher", :album => "Believe", :key_sig => true)
+      response = LastFM.send_api_request("album.getinfo", :artist => "Cher", :album => "Believe", :api_sig => true)
       response.should be_a(Hash)
     end
   end
