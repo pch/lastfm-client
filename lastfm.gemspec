@@ -12,7 +12,9 @@ Gem::Specification.new do |s|
   s.summary     = "Last.fm API client"
   s.description = "Last.fm API client"
 
-  s.rubyforge_project = "lastfm"
+  #s.rubyforge_project = "lastfm"
+
+  s.add_dependency "json", "~> 1.4.6"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
