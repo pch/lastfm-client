@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe LastFM::Tasteometer do
-  it "should define allowed methods" do
-    LastFM::Tasteometer.allowed_methods.should == [:compare]
+  it "should define unrestricted methods" do
+    LastFM::Tasteometer.unrestricted_methods.should == [:compare]
   end
 end

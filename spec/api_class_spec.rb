@@ -1,9 +1,9 @@
 require "spec_helper"
 
 describe LastFM::APIClass do
-  it "should define allowed methods" do
-    LastFM::APIClass.allowed_methods(:foo, :bar, :baz)
-    LastFM::APIClass.allowed_methods.should be_an(Array)
+  it "should define unrestricted methods" do
+    LastFM::APIClass.unrestricted_methods(:foo, :bar, :baz)
+    LastFM::APIClass.unrestricted_methods.should be_an(Array)
   end
 
   it "should not allow to call an undefined method" do
@@ -14,8 +14,18 @@ describe LastFM::APIClass do
     lambda { LastFM::APIClass.foo("not a hash") }.should raise_error(ArgumentError, "Params should be a hash")
   end
 
-  it "should respond to allowed methods" do
-    LastFM.should_receive(:send_api_request).with("apiclass.foo", {:bar=>:baz}).and_return({})
+  it "should respond to unrestricted methods" do
+    LastFM.should_receive(:send_api_request).with("apiclass.foo", {:bar => :baz}).and_return({})
     LastFM::APIClass.foo(:bar => :baz).should be_a(Hash)
+  end
+
+  it "should define restricted methods" do
+    LastFM::APIClass.restricted_methods(:foo1, :bar1, :baz1)
+    LastFM::APIClass.restricted_methods.should be_an(Array)
+  end
+
+  it "should respond to unrestricted methods" do
+    LastFM.should_receive(:send_api_request).with("apiclass.foo1", {:bar => :baz, :api_sig => true}).and_return({})
+    LastFM::APIClass.foo1(:bar => :baz).should be_a(Hash)
   end
 end

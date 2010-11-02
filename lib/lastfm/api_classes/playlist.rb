@@ -1,5 +1,6 @@
 module LastFM
   class Playlist < APIClass
-    allowed_methods :add_track, :create, :fetch
+    unrestricted_methods :fetch
+    restricted_methods   :add_track, :create
   end
 end

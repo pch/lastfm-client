@@ -1,6 +1,6 @@
 module LastFM
   class Album < APIClass
-    allowed_methods :add_tags, :get_buy_links, :get_info, :get_tags, :get_top_tags,
-                    :remove_tag, :search, :share
+    unrestricted_methods :get_buy_links, :get_info,  :get_top_tags, :search
+    restricted_methods   :add_tags, :get_tags, :remove_tag, :share
   end
 end
