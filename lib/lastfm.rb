@@ -92,9 +92,7 @@ module LastFM
     Digest::MD5.hexdigest(signature + self.secret)
   end
 
-  private
-
-    def hash_to_params(hash)
-      hash.map { |key, value| "#{key}=#{::URI.encode(value)}" }.join('&')
-    end
+  def hash_to_params(hash)
+    hash.map { |key, value| "#{key}=#{::URI.encode(value)}" }.join('&')
+  end
 end
