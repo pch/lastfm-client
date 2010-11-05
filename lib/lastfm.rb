@@ -83,8 +83,7 @@ module LastFM
 
   def fetch_data(url)
     open(url, "User-Agent" => client_name) do |page|
-      response = ::JSON.parse(page.read)
-      response
+      ::JSON.parse(page.read)
     end
   end
 
