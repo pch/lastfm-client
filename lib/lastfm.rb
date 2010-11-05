@@ -101,8 +101,6 @@ module LastFM
   private
 
     def hash_to_params(hash)
-      elements = []
-      hash.each { |key, value| elements << "#{key}=#{::URI.encode(value)}" }
-      elements.join('&')
+      hash.map { |key, value| "#{key}=#{::URI.encode(value)}" }.join('&')
     end
 end
