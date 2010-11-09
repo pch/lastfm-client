@@ -4,7 +4,8 @@ module LastFM
     def self.unrestricted_methods(*args)
       args.each do |method|
         define_api_method(method) do |params|
-          unrestricted_method(method, params)
+          raise ArgumentError, "Params should be a hash" unless params.is_a?(Hash)
+          send_request(method, params)
         end
       end
     end
@@ -31,11 +32,6 @@ module LastFM
           restricted_method(method, params, :post)
         end
       end
-    end
-
-    def self.unrestricted_method(method, params)
-      raise ArgumentError, "Params should be a hash" unless params.is_a?(Hash)
-      send_request(method, params)
     end
 
     def self.restricted_method(method, params, request_method = :get)
