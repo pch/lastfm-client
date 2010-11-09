@@ -1,26 +1,66 @@
 module LastFM
   class APIClass
-    def self.method_missing(method, params = {})
-      raise RuntimeError,  "Undefined method #{method}" unless (unrestricted_methods | restricted_methods).include?(method)
-      raise ArgumentError, "Params should be a hash"    unless params.is_a?(Hash)
 
+    def self.unrestricted_methods(*args)
+      args.each do |method|
+        define_api_method(method) do |params|
+          unrestricted_method(method, params)
+        end
+      end
+    end
+
+    def self.restricted_methods(*args, &block)
+      if block_given?
+        yield
+      else
+        read(*args)
+      end
+    end
+
+    def self.read(*args)
+      args.each do |method|
+        define_api_method(method) do |params|
+          restricted_method(method, params)
+        end
+      end
+    end
+
+    def self.write(*args)
+      args.each do |method|
+        define_api_method(method) do |params|
+          restricted_method(method, params, :post)
+        end
+      end
+    end
+
+    def self.unrestricted_method(method, params)
+      raise ArgumentError, "Params should be a hash" unless params.is_a?(Hash)
+      send_request(method, params)
+    end
+
+    def self.restricted_method(method, params, request_method = :get)
+      raise ArgumentError, "Params should be a hash" unless params.is_a?(Hash)
+
+      params[:api_sig] = true
+
+      if request_method == :get
+        send_request(method, params)
+      else
+        # TODO: implement POST request
+      end
+    end
+
+    def self.send_request(method, params)
       api_method  = self.to_s.split("::").last + "." # LastFM::Album => Album
       api_method += method.to_s.tr('_', '')          # get_info => getinfo
 
-      params[:api_sig] = true if restricted_methods.include?(method)
       LastFM.send_api_request(api_method.downcase, params)
     end
 
-    def self.unrestricted_methods(*args)
-      @unrestricted_methods ||= []
-      @unrestricted_methods   = args if args.length > 0
-      @unrestricted_methods
-    end
-
-    def self.restricted_methods(*args)
-      @restricted_methods ||= []
-      @restricted_methods   = args if args.length > 0
-      @restricted_methods
+    def self.define_api_method(method, &block)
+      (class << self; self; end).instance_eval do
+        define_method(method, &block)
+      end
     end
   end
 end
