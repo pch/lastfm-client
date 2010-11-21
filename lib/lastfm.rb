@@ -65,7 +65,7 @@ module LastFM
     @auth_url = url
   end
 
-  def send_api_request(method, params)
+  def send_api_request(method, params, request_method = :get)
     raise "Invalid params" unless params.is_a?(Hash)
 
     params[:method]  = method
@@ -85,6 +85,10 @@ module LastFM
     open(url, "User-Agent" => client_name) do |page|
       ::JSON.parse(page.read)
     end
+  end
+  
+  def post_data(url, params)
+    
   end
 
   def generate_signature(params)

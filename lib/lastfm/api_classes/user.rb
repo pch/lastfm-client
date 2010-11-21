@@ -7,7 +7,9 @@ module LastFM
                          :get_weekly_album_chart, :get_weekly_artist_chart, :get_weekly_chart_list,
                          :get_weekly_track_chart
 
-    restricted_methods   :get_recent_stations, :get_recommended_artists, :get_recommended_events,
-                         :shout
+    restricted_methods do
+      read  :get_recent_stations, :get_recommended_artists, :get_recommended_events
+      write :shout
+    end
   end
 end

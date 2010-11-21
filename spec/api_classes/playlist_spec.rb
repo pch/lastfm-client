@@ -2,10 +2,10 @@ require "spec_helper"
 
 describe LastFM::Playlist do
   it "should define unrestricted methods" do
-    LastFM::Playlist.unrestricted_methods.should == [:fetch]
+    LastFM::Playlist.should respond_to(:fetch)
   end
 
   it "should define restricted methods" do
-    LastFM::Playlist.restricted_methods.should == [:add_track, :create]
+    LastFM::Playlist.should respond_to(:add_track, :create)
   end
 end
