@@ -38,19 +38,14 @@ module LastFM
       raise ArgumentError, "Params should be a hash" unless params.is_a?(Hash)
 
       params[:api_sig] = true
-
-      if request_method == :get
-        send_request(method, params)
-      else
-        # TODO: implement POST request
-      end
+      send_request(method, params, request_method)
     end
 
-    def self.send_request(method, params)
+    def self.send_request(method, params, request_method = :get)
       api_method  = self.to_s.split("::").last + "." # LastFM::Album => Album
       api_method += method.to_s.tr('_', '')          # get_info => getinfo
 
-      LastFM.send_api_request(api_method.downcase, params)
+      LastFM.send_api_request(api_method.downcase, params, request_method)
     end
 
     def self.define_api_method(method, &block)
