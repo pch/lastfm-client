@@ -1,5 +1,10 @@
 module LastFM
   class Radio < APIClass
-    restricted_methods :get_playlist, :tune
+    unrestricted_methods :search
+    
+    restricted_methods do
+      read  :get_playlist
+      write :tune
+    end
   end
 end
