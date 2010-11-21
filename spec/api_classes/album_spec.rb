@@ -11,6 +11,10 @@ describe LastFM::Album do
   end
 
   describe "restricted methods" do
+    it "should define restricted methods" do
+      LastFM::Album.should respond_to(:get_tags, :add_tags, :remove_tag, :share)
+    end
+    
     it "should respond to restricted read methods" do
       LastFM.should_receive(:send_api_request).with("album.gettags", {:bar => :baz, :api_sig => true}, :get).and_return({})
       LastFM::Album.get_tags(:bar => :baz).should be_a(Hash)
