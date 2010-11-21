@@ -15,7 +15,7 @@ describe LastFM::APIClass do
   end
 
   it "should respond to unrestricted methods" do
-    LastFM.should_receive(:send_api_request).with("apiclass.foo", {:bar => :baz}).and_return({})
+    LastFM.should_receive(:send_api_request).with("apiclass.foo", {:bar => :baz}, :get).and_return({})
     LastFM::APIClass.foo(:bar => :baz).should be_a(Hash)
   end
 
@@ -27,7 +27,7 @@ describe LastFM::APIClass do
   end
 
   it "should respond to restricted methods" do
-    LastFM.should_receive(:send_api_request).with("apiclass.foo1", {:bar => :baz, :api_sig => true}).and_return({})
+    LastFM.should_receive(:send_api_request).with("apiclass.foo1", {:bar => :baz, :api_sig => true}, :get).and_return({})
     LastFM::APIClass.foo1(:bar => :baz).should be_a(Hash)
   end
 end
