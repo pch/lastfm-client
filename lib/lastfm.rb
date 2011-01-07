@@ -90,14 +90,14 @@ module LastFM
       ::JSON.parse(page.read)
     end
   end
-  
+
   def post_data(url, params)
     url = URI.parse(url)
     req = Net::HTTP::Post.new(url.path)
     req.set_form_data(params)
-    
+
     res = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
-    
+
     case res
     when Net::HTTPSuccess, Net::HTTPRedirection
       return ::JSON.parse(res.body)
@@ -109,7 +109,7 @@ module LastFM
   end
 
   def generate_signature(params)
-    signature = params.sort.map { |param| "#{param[0]}#{::URI.encode(param[1])}" }.join('')
+    signature = params.sort.map { |param| "#{param[0].to_s}#{::URI.encode(param[1].to_s)}" }.join('')
     Digest::MD5.hexdigest(signature + self.secret)
   end
 
