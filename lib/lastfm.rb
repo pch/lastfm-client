@@ -109,7 +109,9 @@ module LastFM
   end
 
   def generate_signature(params)
-    signature = params.sort.map { |param| "#{param[0].to_s}#{::URI.encode(param[1].to_s)}" }.join('')
+    params    = params.sort_by { |k,v| k.to_s }
+    signature = params.map { |param| "#{param[0].to_s}#{::URI.encode(param[1].to_s)}" }.join('')
+
     Digest::MD5.hexdigest(signature + self.secret)
   end
 
