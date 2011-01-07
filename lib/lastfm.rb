@@ -78,7 +78,11 @@ module LastFM
 
     params[:format] = "json"
 
-    fetch_data(self.api_url + "?" + hash_to_params(params))
+    if request_method == :post
+      post_data(self.api_url, params)
+    else
+      fetch_data(self.api_url + "?" + hash_to_params(params))
+    end
   end
 
   def fetch_data(url)
@@ -88,7 +92,20 @@ module LastFM
   end
   
   def post_data(url, params)
+    url = URI.parse(url)
+    req = Net::HTTP::Post.new(url.path)
+    req.set_form_data(params)
     
+    res = Net::HTTP.new(url.host, url.port).start { |http| http.request(req) }
+    
+    case res
+    when Net::HTTPSuccess, Net::HTTPRedirection
+      return ::JSON.parse(res.body)
+    when Net::HTTPClientError
+      raise Messy::InvalidData, res.body if res.code == "422" # unprocessable entity
+    end
+
+    raise LastFM::APIException, res.error!
   end
 
   def generate_signature(params)
