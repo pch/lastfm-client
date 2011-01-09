@@ -4,6 +4,9 @@ require "json"
 require 'digest/md5'
 
 module LastFM
+  class APIException < StandardError; end
+  class InvalidData  < APIException;  end
+
   extend self
 
   autoload :APIClass,    'lastfm/api_class'
@@ -102,7 +105,7 @@ module LastFM
     when Net::HTTPSuccess, Net::HTTPRedirection
       return ::JSON.parse(res.body)
     when Net::HTTPClientError
-      raise Messy::InvalidData, res.body if res.code == "422" # unprocessable entity
+      raise LastFM::InvalidData, res.body if res.code == "422" # unprocessable entity
     end
 
     raise LastFM::APIException, res.error!
