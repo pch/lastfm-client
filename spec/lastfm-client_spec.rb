@@ -76,11 +76,25 @@ describe LastFM do
       response.should be_a(Hash)
     end
 
+    it "should send GET request by default" do
+      LastFM.should_receive(:fetch_data).with("http://ws.audioscrobbler.com/2.0/?artist=Cher&album=Believe&method=album.getinfo&api_key=7fbc71d4b818dc1277e273ac1ef92b07&format=json").and_return({})
+
+      response = LastFM.send_api_request("album.getinfo", :artist => "Cher", :album => "Believe")
+      response.should be_a(Hash)
+    end
+
     it "should send request with key signature" do
       LastFM.secret = "test"
       LastFM.should_receive(:fetch_data).with("http://ws.audioscrobbler.com/2.0/?artist=Cher&album=Believe&method=album.getinfo&api_key=7fbc71d4b818dc1277e273ac1ef92b07&api_sig=b796a3385c59872367f31fc510a4ee21&format=json").and_return({})
 
       response = LastFM.send_api_request("album.getinfo", :artist => "Cher", :album => "Believe", :api_sig => true)
+      response.should be_a(Hash)
+    end
+
+    it "should send POST requests" do
+      LastFM.should_receive(:post_data).with("http://ws.audioscrobbler.com/2.0/", {:user => "jeff", :message => "hi Jeff!", :method => "user.shout", :api_key => "7fbc71d4b818dc1277e273ac1ef92b07", :api_sig => "4fe1b617ed11494c24f6d36e8be2ce14", :format => "json"}).and_return({})
+
+      response = LastFM.send_api_request("user.shout", {:user => "jeff", :message => "hi Jeff!", :api_sig => true}, :post)
       response.should be_a(Hash)
     end
   end
