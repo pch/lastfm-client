@@ -6,7 +6,7 @@ LastFM is a Ruby wrapper for [Last.fm API](http://www.last.fm/api).
 
 Add the following line to your Gemfile and run `bundle install`:
 
-    gem 'lastfm-client'
+    gem 'lastfm-client', :git => 'http://github.com/pch/lastfm-client.git'
 
 You also need to set up your API key and client name, e.g.:
 
