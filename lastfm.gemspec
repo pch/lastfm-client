@@ -1,18 +1,16 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "lastfm/version"
+require "lastfm-client/version"
 
 Gem::Specification.new do |s|
-  s.name        = "lastfm"
+  s.name        = "lastfm-client"
   s.version     = LastFM::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Piotr Chmolowski"]
   s.email       = ["piotr@chmolowski.pl"]
-  s.homepage    = "http://github.com/pch/lastfm"
+  s.homepage    = "http://github.com/pch/lastfm-client"
   s.summary     = "Last.fm API client"
   s.description = "Last.fm API client"
-
-  #s.rubyforge_project = "lastfm"
 
   s.add_dependency "json", "~> 1.4.6"
 
