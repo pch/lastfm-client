@@ -24,7 +24,7 @@ If you're using Rails, you can add the above lines to an initalizer file, e.g. `
 
 ### Authentication
 
-For some methods, Last.fm requires authentication, which is somewhat similar to oAuth:
+For some methods Last.fm requires authentication, which is somewhat similar to oAuth:
 
     class SessionsController < ApplicationController
       def new

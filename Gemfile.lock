@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lastfm (0.0.1)
+    lastfm-client (0.0.1)
       json (~> 1.4.6)
 
 GEM
@@ -26,6 +26,6 @@ PLATFORMS
 
 DEPENDENCIES
   json (~> 1.4.6)
-  lastfm!
+  lastfm-client!
   rake
   rspec (~> 2.0.0)

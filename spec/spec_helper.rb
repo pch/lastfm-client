@@ -1,4 +1,4 @@
 require "bundler"
 Bundler.setup
 
-require "lastfm"
+require "lastfm-client"
