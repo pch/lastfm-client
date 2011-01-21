@@ -94,6 +94,9 @@ module LastFM
     end
   end
 
+  #
+  # FIXME: returns either 403 or bad signature errors
+  #
   def post_data(url, params)
     url = URI.parse(url)
     req = Net::HTTP::Post.new(url.path)
