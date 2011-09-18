@@ -1,7 +1,8 @@
 require "open-uri"
 require "uri"
 require "json"
-require 'digest/md5'
+require "digest/md5"
+require "net/http"
 
 module LastFM
   class APIException < StandardError; end
@@ -117,7 +118,7 @@ module LastFM
   def generate_signature(params)
     params    = params.sort_by { |k,v| k.to_s }
     signature = params.map { |param| "#{param[0].to_s}#{::URI.encode(param[1].to_s)}" }.join('')
-
+    
     Digest::MD5.hexdigest(signature + self.secret)
   end
 
