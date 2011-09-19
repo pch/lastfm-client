@@ -3,6 +3,7 @@ require "uri"
 require "json"
 require "digest/md5"
 require "net/http"
+require "cgi"
 
 module LastFM
   class APIException < StandardError; end
@@ -123,6 +124,6 @@ module LastFM
   end
 
   def hash_to_params(hash)
-    hash.map { |key, value| "#{key.to_s}=#{::URI.encode(value.to_s).gsub(/\+/,'%2B').gsub(/\&/,'%26')}" }.join('&')
+    hash.map { |key, value| "#{key.to_s}=#{::CGI.encode(value.to_s)}" }.join('&')
   end
 end
