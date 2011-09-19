@@ -123,6 +123,6 @@ module LastFM
   end
 
   def hash_to_params(hash)
-    hash.map { |key, value| "#{key.to_s}=#{::URI.encode(value.to_s)}" }.join('&')
+    hash.map { |key, value| "#{key.to_s}=#{::URI.encode(value.to_s).gsub(/\+/,'%2B')}" }.join('&')
   end
 end
