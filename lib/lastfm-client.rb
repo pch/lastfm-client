@@ -124,6 +124,6 @@ module LastFM
   end
 
   def hash_to_params(hash)
-    hash.map { |key, value| "#{key.to_s}=#{::CGI.encode(value.to_s)}" }.join('&')
+    hash.map { |key, value| "#{key.to_s}=#{::CGI.escape(value.to_s)}" }.join('&')
   end
 end
