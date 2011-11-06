@@ -92,7 +92,7 @@ describe LastFM do
     end
 
     it "should send POST requests" do
-      LastFM.should_receive(:post_data).with("http://ws.audioscrobbler.com/2.0/", {:user => "jeff", :message => "hi Jeff!", :method => "user.shout", :api_key => "7fbc71d4b818dc1277e273ac1ef92b07", :api_sig => "4fe1b617ed11494c24f6d36e8be2ce14", :format => "json"}).and_return({})
+      LastFM.should_receive(:post_data).with("http://ws.audioscrobbler.com/2.0/", {:user => "jeff", :message => "hi Jeff!", :method => "user.shout", :api_key => "7fbc71d4b818dc1277e273ac1ef92b07", :api_sig => "83c66301079de9f515be5e0206ddbb18", :format => "json"}).and_return({})
 
       response = LastFM.send_api_request("user.shout", {:user => "jeff", :message => "hi Jeff!", :api_sig => true}, :post)
       response.should be_a(Hash)
