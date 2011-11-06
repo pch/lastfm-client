@@ -15,6 +15,7 @@ module LastFM
   autoload :Album,       'lastfm-client/api_classes/album'
   autoload :Artist,      'lastfm-client/api_classes/artist'
   autoload :Auth,        'lastfm-client/api_classes/auth'
+  autoload :Chart,       'lastfm-client/api_classes/chart'
   autoload :Event,       'lastfm-client/api_classes/event'
   autoload :Geo,         'lastfm-client/api_classes/geo'
   autoload :Group,       'lastfm-client/api_classes/group'
